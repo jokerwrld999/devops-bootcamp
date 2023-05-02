@@ -1,4 +1,7 @@
-def gv = load "script.groovy"
+node{
+    def gv = load "jenkins/script.groovy"
+
+}
 
 pipeline {
     agent any
