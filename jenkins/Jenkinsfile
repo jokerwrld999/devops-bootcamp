@@ -16,7 +16,6 @@ pipeline {
                 script {
                     gv = load 'jenkins/script.groovy'
                 }
-
             }
         }
         stage ("build") {
@@ -25,7 +24,6 @@ pipeline {
                 script {
                     gv.buildApp()
                 }
-
             }
         }
         stage ("test") {
@@ -35,22 +33,17 @@ pipeline {
                 }
             }
             steps {
-
                 script {
                     gv.testApp()
                 }
-
             }
         }
         stage ("deploy") {
-
             steps {
                 script {
                     gv.deployApp()
                 }
-
             }
         }
     }
-
 }
