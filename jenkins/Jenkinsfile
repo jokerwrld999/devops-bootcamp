@@ -1,3 +1,5 @@
+def gv
+
 pipeline {
     agent any
 
@@ -12,7 +14,8 @@ pipeline {
 
             steps {
                 script {
-                    gv = load "script.groovy"
+                    def rootDir = pwd()
+                    def gv = load "${rootDir}/jenkins/script.groovy"
                 }
 
             }
