@@ -1,7 +1,9 @@
-def gv = load "jenkins/script.groovy"
-
 pipeline {
     agent any
+
+    environment {
+        gv = load 'jenkins/script.groovy'
+    }
 
     parameters {
         choice(name: "VERSION", choices: ['1.1', '1.2', '1.3'], description: 'version')
