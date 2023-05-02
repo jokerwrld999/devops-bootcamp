@@ -1,8 +1,4 @@
-node {
-    def rootDir = pwd()
-    def gv = load "${rootDir}/jenkins/script.groovy"
-
-}
+def gv = load "script.groovy"
 
 pipeline {
     agent any
