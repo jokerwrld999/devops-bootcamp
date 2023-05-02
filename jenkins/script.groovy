@@ -1,13 +1,13 @@
 def buildApp() {
-    echo "building the application..."
+    sh "mvn package"
 }
 
-def testApp() {
-    echo "testing the application..."
+def buildImage() {
+    withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+        sh "docker build -t $REPOSITORY ."
+        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin "
+        sh "docker push $REPOSITORY"
+    }
 }
 
-def deployApp() {
-    echo "deploying the application..."
-    echo "application version: ${params.VERSION}"
-}
 return this

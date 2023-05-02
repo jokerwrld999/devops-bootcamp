@@ -1,0 +1,33 @@
+def gv
+
+pipeline {
+    agent any
+    environment {
+        REPOSITORY='jokerwrld/java-maven-app:2.0'
+    }
+
+    stages {
+
+        stage ("init") {
+            steps {
+                script {
+                    gv = load 'stages.groovy'
+                }
+            }
+        }
+        stage ("build jar") {
+            steps {
+                script {
+                    gv.buildApp()
+                }
+            }
+        }
+        stage ("build image") {
+            steps {
+                script {
+                    gv.buildImage()
+                }
+            }
+        }
+    }
+}
