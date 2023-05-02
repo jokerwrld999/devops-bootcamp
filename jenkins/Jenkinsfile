@@ -1,4 +1,4 @@
-def gv
+
 
 pipeline {
     agent any
@@ -25,6 +25,7 @@ pipeline {
 
             steps {
                 script {
+                    def gv
                     gv.buildApp()
                 }
 
