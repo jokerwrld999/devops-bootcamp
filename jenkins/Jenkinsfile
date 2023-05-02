@@ -1,4 +1,5 @@
-
+def rootDir = pwd()
+def gv = load "${rootDir}/jenkins/script.groovy"
 
 pipeline {
     agent any
@@ -10,22 +11,10 @@ pipeline {
 
     stages {
 
-        stage ("init") {
-
-            steps {
-                script {
-                    def rootDir = pwd()
-                    def gv = load "${rootDir}/jenkins/script.groovy"
-                }
-
-            }
-        }
-
         stage ("build") {
 
             steps {
                 script {
-                    def gv
                     gv.buildApp()
                 }
 
