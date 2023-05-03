@@ -1,3 +1,4 @@
+@Library('jenkins-shared-library')
 def gv
 
 pipeline {
@@ -5,7 +6,6 @@ pipeline {
     environment {
         REPOSITORY='jokerwrld/java-maven-app:2.0'
     }
-
     stages {
 
         stage ("init") {
@@ -18,14 +18,21 @@ pipeline {
         stage ("build jar") {
             steps {
                 script {
-                    gv.buildApp()
+                    buildJar()
                 }
             }
         }
         stage ("build image") {
             steps {
                 script {
-                    gv.buildImage()
+                    buildImage()
+                }
+            }
+        }
+        stage ("deploy app") {
+            steps {
+                script {
+                    gv.deployApp()
                 }
             }
         }
