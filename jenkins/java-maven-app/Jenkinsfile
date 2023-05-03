@@ -4,7 +4,7 @@ def gv
 pipeline {
     agent any
     environment {
-        REPOSITORY='jokerwrld/java-maven-app:2.0'
+        imageName='jokerwrld/java-maven-app:3.0'
     }
     stages {
 
@@ -25,7 +25,7 @@ pipeline {
         stage ("build image") {
             steps {
                 script {
-                    buildImage()
+                    buildImage "$imageName"
                 }
             }
         }
