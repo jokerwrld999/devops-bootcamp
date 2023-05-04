@@ -38,9 +38,9 @@ pipeline {
         stage ("build image") {
             steps {
                 script {
-                    buildImage "$imageName:$IMAGE_NAME"
+                    buildImage "$imageName:${versionTag}"
                     dockerLogin
-                    pushImage "$imageName:$IMAGE_NAME"
+                    pushImage "$imageName:${versionTag}"
                 }
             }
         }
@@ -48,6 +48,13 @@ pipeline {
             steps {
                 script {
                     gv.deployApp()
+                }
+            }
+        }
+        stage ("update version") {
+            steps {
+                script {
+                    versionUpdate
                 }
             }
         }
