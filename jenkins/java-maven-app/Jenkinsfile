@@ -7,7 +7,10 @@ def gv
 pipeline {
     agent any
     environment {
-        imageName='jokerwrld/java-maven-app:3.0'
+        repositoryName = 'jokerwrld'
+        appName = 'java-maven-app'
+
+        imageName = "$repositoryName/$appName"
     }
     stages {
 
@@ -18,19 +21,26 @@ pipeline {
                 }
             }
         }
-        stage ("build jar") {
+        stage ("increment version") {
             steps {
                 script {
-                    buildJar()
+                    incrementVersion()
+                }
+            }
+        }
+        stage ("build app") {
+            steps {
+                script {
+                    buildApp()
                 }
             }
         }
         stage ("build image") {
             steps {
                 script {
-                    buildImage "$imageName"
+                    buildImage "$imageName:$IMAGE_NAME"
                     dockerLogin
-                    pushImage "$imageName"
+                    pushImage "$imageName:$IMAGE_NAME"
                 }
             }
         }
