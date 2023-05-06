@@ -1,10 +1,10 @@
 def deployApp() {
     echo "Deploying app on the server..."
-    def dockerStop ="docker stop $appName"
-    def dockerRun = "docker run --rm -d --name $appName -p 4444:8080 $imageName:${versionTag}"
+    def ec2InstanceIP = 'ec2-user@18.197.109.37'
+    def executeScript ="bash ./deploy_app.sh $imageName:${versionTag}"
     sshagent(credentials: ['ec2-private-key']) {
-      sh "ssh -o StrictHostKeyChecking=no ec2-user@18.197.109.37 ${dockerStop}"
-      sh "ssh -o StrictHostKeyChecking=no ec2-user@18.197.109.37 ${dockerRun}"
+      sh "scp deploy_app.sh docker-compose.yaml ${ec2InstanceIP}:/home/ec2-user"
+      sh "ssh -o StrictHostKeyChecking=no ${ec2InstanceIP} ${executeScript}"
     }
 }
 
